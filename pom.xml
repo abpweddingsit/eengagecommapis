@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.7.14</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+	
+	
+	<!--
+	<groupId>com.abpm</groupId>
+  <artifactId>abp-dynamic-price-service</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>abp-dynamic-price-service</name>
+	
+	/abp-dynamic-price-service/api/dynamicprice/getPlanList/msite/3465934/92f7f4b86d0f45b81b67b97c8b4d9b67/en-->
+	
+	
+	<groupId>com.engg</groupId>
+	<artifactId>bulkpushService</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>engg</name>
+	
+	
+	
+	
+	
+	
+	<properties>
+		<java.version>1.8</java.version>
+	</properties>
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		
+		<dependency>
+           <groupId>org.springframework.boot</groupId>
+           <artifactId>spring-boot-starter-webflux</artifactId>
+        </dependency>
+        
+        <dependency>
+         <groupId>org.springframework</groupId>
+         <artifactId>spring-context</artifactId>
+         <version>5.3.15</version>
+        </dependency>
+        
+        <dependency>
+         <groupId>org.springframework.cloud</groupId>
+         <artifactId>spring-cloud-dependencies</artifactId>
+         <version>Greenwich.RELEASE</version>
+         <type>pom</type>
+         <scope>import</scope>
+       </dependency>
+       
+       <!--<dependency>
+         <groupId>org.springframework.cloud</groupId>
+         <artifactId>spring-cloud-starter-config</artifactId>
+         <version>3.1.5</version>
+      </dependency>-->
+
+        
+        <dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+		</dependency>
+		
+		<dependency>
+           <groupId>org.json</groupId>
+           <artifactId>json</artifactId>
+           <version>20220320</version>
+       </dependency>
+       
+       <dependency> 
+		   <groupId>javax.servlet</groupId>
+           <artifactId>javax.servlet-api</artifactId>
+           <version>3.0.1</version>
+           <scope>provided</scope>
+       </dependency>
+       
+       <dependency>
+           <groupId>org.apache.httpcomponents</groupId>
+           <artifactId>httpclient</artifactId>
+           <version>4.3.6</version>
+       </dependency>
+       
+       <dependency>
+        <groupId>com.squareup.okhttp3</groupId>
+        <artifactId>okhttp</artifactId>
+        <version>3.9.0</version>
+       </dependency>
+       
+       <dependency>
+          <groupId>com.squareup.okhttp3</groupId>
+          <artifactId>mockwebserver</artifactId>
+           <version>4.11.0</version>
+        <scope>test</scope>
+      </dependency>
+      
+      <dependency>
+        <groupId>com.infobip</groupId>
+        <artifactId>infobip-api-java-client</artifactId>
+        <version>2.3.0</version>
+      </dependency>
+
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+                  <addResources>true</addResources>
+                </configuration>
+			</plugin>
+		</plugins>
+		
+		<!--<resources>     
+        <resource>
+            <directory>src/main/resources</directory>
+            <filtering>true</filtering>
+        </resource>            
+    </resources>-->
+    <resources>
+    <resource>
+      <directory>resources</directory>
+      <targetPath>${project.build.outputDirectory}</targetPath>
+      <includes>
+        <include>application.properties</include>
+      </includes>
+    </resource>
+  </resources>
+	</build>
+	
+	<profiles>
+        <profile>
+            <id>dev</id>
+            <properties>
+                <activatedProperties>dev</activatedProperties>
+            </properties>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+        <!--<profile>
+            <id>prod</id>
+            <properties>
+                <activatedProperties>prod</activatedProperties>
+            </properties>
+        </profile>-->
+    </profiles>
+
+</project>
