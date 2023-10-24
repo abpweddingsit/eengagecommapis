@@ -5,6 +5,7 @@ import java.util.List;
 public class SMSMultipleUsersActivityLog {
 
 	private List<SMSActivityLog> smsPayload;
+	private String campaignId;
 	public SMSMultipleUsersActivityLog() {
 		// TODO Auto-generated constructor stub
 	}
@@ -13,6 +14,12 @@ public class SMSMultipleUsersActivityLog {
 	}
 	public void setSmsPayload(List<SMSActivityLog> smsPayload) {
 		this.smsPayload = smsPayload;
+	}
+	public String getCampaignId() {
+		return campaignId;
+	}
+	public void setCampaignId(String campaignId) {
+		this.campaignId = campaignId;
 	}
 	
 	

@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,7 +18,7 @@ import com.engg.communication.dataobjects.IndiaDlt;
 import com.engg.communication.dataobjects.Regional;
 import com.engg.communication.dataobjects.SMSActivityLog;
 import com.engg.communication.dataobjects.SMSMultipleUsersActivityLog;
-import com.engg.communication.external.InfobipSMSGateWayBusinessObject;
+import com.engg.communication.service.SmsTrackService;
 import com.engg.communication.util.SMSrunCampaignThread;
 
 @Controller
@@ -28,6 +29,8 @@ public class SMSCommunicationRestService {
 	private static final Logger logger = LoggerFactory.getLogger(SMSCommunicationRestService.class);
 	final static int THREAD_BASE_SMS_CAMPAIGN_COUNT = 200;
 	
+	@Autowired
+	SmsTrackService smsTrackService;
 	
 	@CrossOrigin
 	@PostMapping("/sms/campaign/singleUser")
@@ -125,7 +128,7 @@ public class SMSCommunicationRestService {
 				        
 						
 					if(plist!=null && plist.size()>0) {
-						Runnable r = new SMSrunCampaignThread(plist,i);
+						Runnable r = new SMSrunCampaignThread(plist,i,smsTrackService,listactivityLog.getCampaignId());
 						new Thread(r).start();
 						
 						//Thread.sleep(3000l);

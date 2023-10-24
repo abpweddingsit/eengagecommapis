@@ -1,8 +1,9 @@
 package com.engg.communication.util;
 
-import java.text.MessageFormat;
 import java.util.List;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -11,9 +12,7 @@ import com.engg.communication.dataobjects.IndiaDlt;
 import com.engg.communication.dataobjects.Regional;
 import com.engg.communication.dataobjects.SMSActivityLog;
 import com.engg.communication.external.InfobipSMSGateWayBusinessObject;
-
-import org.json.JSONObject;
-import org.json.JSONArray;
+import com.engg.communication.service.SmsTrackService;
 
 
 
@@ -24,19 +23,23 @@ public class SMSrunCampaignThread implements Runnable{
 
 	List<SMSActivityLog> smsList = null;
 	int x = 0;
+	SmsTrackService smsTrackServicebk = null;
+	String campaignIdbk = null;
 	
-	public SMSrunCampaignThread(List<SMSActivityLog>  plist,int i) {
+	public SMSrunCampaignThread(List<SMSActivityLog>  plist,int i,SmsTrackService smsTrackService,String campaignId) {
 		// TODO Auto-generated constructor stub
 		this.smsList = plist;
 		this.x = i;
+		this.smsTrackServicebk = smsTrackService;
+		this.campaignIdbk = campaignId;
 	}
 	
 	@Override
 	public void run() {
-		executeJobForSmsCampaignThreadSafe(smsList,x);
+		executeJobForSmsCampaignThreadSafe(smsList,x,smsTrackServicebk,campaignIdbk);
 	}
 	
-	public void executeJobForSmsCampaignThreadSafe(List<SMSActivityLog> smspayload,int cnt){
+	public void executeJobForSmsCampaignThreadSafe(List<SMSActivityLog> smspayload,int cnt,SmsTrackService trackService,String campId){
 		
 		try{
 			//logger.info(new StringBuffer("Thread bucket SMS ... ").append(cnt).toString());
@@ -110,7 +113,7 @@ public class SMSrunCampaignThread implements Runnable{
 				
 			}
 			
-			new InfobipSMSGateWayBusinessObject().sendSMS(messages.toString());
+			new InfobipSMSGateWayBusinessObject().sendSMS(messages.toString(),trackService,campId);
 			logger.info(new StringBuffer(" SMS bulk data json... ").append(messages.toString()).toString());
 			
 		}catch(Exception e){

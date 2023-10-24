@@ -13,6 +13,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
+import com.engg.communication.service.SmsTrackService;
+
 import infobip.api.client.SendMultipleTextualSmsAdvanced;
 import infobip.api.config.BasicAuthConfiguration;
 import infobip.api.model.Destination;
@@ -31,7 +33,7 @@ public class InfobipSMSGateWayBusinessObject {
 	final String password = "Abpweddings123!";
 	final String senderId = "ABPWED";
 	
-	public String sendSMS(String campaignData) {
+	public String sendSMS(String campaignData,SmsTrackService smsTrackService,String campaignId) {
 		String responseMsg = null;
 		try {
 			
@@ -58,6 +60,16 @@ public class InfobipSMSGateWayBusinessObject {
 			
 			ResponseEntity<String> result = rt.exchange("https://4mvrkp.api.infobip.com/sms/2/text/advanced", HttpMethod.POST, request, String.class);
 			responseMsg = result.getBody();
+			
+			JSONObject jb = new JSONObject(responseMsg);
+			
+			String bulkId = jb.getString("bulkId");
+			
+			logger.info(new StringBuffer("Show bulkId of SMS is..").append(bulkId).toString());
+			logger.info(new StringBuffer("Show campaignId of SMS is..").append(campaignId).toString());
+			
+			//Caliing Insert query
+			smsTrackService.insertTrackIds(bulkId, campaignId);
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
