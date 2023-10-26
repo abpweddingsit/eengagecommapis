@@ -106,10 +106,12 @@ public class SMSrunCampaignThread implements Runnable{
 				regional.put("indiaDlt", indiaDlt);
 				
 				data.put("regional", regional);
+				data.put("notify_url", "https://eengagesofapisqa.abpweddings.com/campaign/report/sms");
 				
 				messages1.put(data);
 				
 				messages.put("messages", messages1);
+				messages.put("notify_url", "https://eengagesofapisqa.abpweddings.com/campaign/report/sms");
 				
 			}
 			
